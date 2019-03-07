@@ -6,7 +6,7 @@ title: Tree
 
 ## When To Use
 
-Almost anything can be represented in a tree structure. Examples include directories, organization hierarchies, biological classifications, countries, etc. The `Tree` component is a way of representing the hierarchical relationship between these things. You can also  expand, collapse, and select a treeNode within a `Tree`.
+Almost anything can be represented in a tree structure. Examples include directories, organization hierarchies, biological classifications, countries, etc. The `Tree` component is a way of representing the hierarchical relationship between these things. You can also expand, collapse, and select a treeNode within a `Tree`.
 
 ## API
 
@@ -28,9 +28,11 @@ Almost anything can be represented in a tree structure. Examples include directo
 | expandedKeys | (Controlled) Specifies the keys of the expanded treeNodes | string\[] | \[] |
 | filterTreeNode | Defines a function to filter (highlight) treeNodes. When the function returns `true`, the corresponding treeNode will be highlighted | function(node) | - |
 | loadData | Load data asynchronously | function(node) | - |
+| loadedKeys | (Controlled) Set loaded tree nodes. Need work with `loadData` | string\[] | \[] |
 | multiple | Allows selecting multiple treeNodes | boolean | false |
 | selectedKeys | (Controlled) Specifies the keys of the selected treeNodes | string\[] | - |
 | showIcon | Shows the icon before a TreeNode's title. There is no default style; you must set a custom style for it if set to `true` | boolean | false |
+| switcherIcon | customize collapse/expand icon of tree node | React.ReactElement | - |
 | showLine | Shows a connecting line | boolean | false |
 | onCheck | Callback function for when the onCheck event occurs | function(checkedKeys, e:{checked: bool, checkedNodes, node, event}) | - |
 | onDragEnd | Callback function for when the onDragEnd event occurs | function({event, node}) | - |
@@ -40,6 +42,7 @@ Almost anything can be represented in a tree structure. Examples include directo
 | onDragStart | Callback function for when the onDragStart event occurs | function({event, node}) | - |
 | onDrop | Callback function for when the onDrop event occurs | function({event, node, dragNode, dragNodesKeys}) | - |
 | onExpand | Callback function for when a treeNode is expanded or collapsed | function(expandedKeys, {expanded: bool, node}) | - |
+| onLoad | Callback function for when a treeNode is loaded | function(loadedKeys, {event, node}) | - |
 | onRightClick | Callback function for when the user right clicks a treeNode | function({event, node}) | - |
 | onSelect | Callback function for when the user clicks a treeNode | function(selectedKeys, e:{selected: bool, selectedNodes, node, event}) | - |
 
@@ -55,6 +58,13 @@ Almost anything can be represented in a tree structure. Examples include directo
 | selectable | Set whether the treeNode can be selected | boolean | true |
 | title | Title | string\|ReactNode | '---' |
 
+### DirectoryTree props
+
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| expandAction | Directory open logic, optional `false` `'click'` `'doubleClick'` | string | click |
+
+
 ## Note
 
 Before `3.4.0`:
@@ -68,3 +78,9 @@ to avoid double computing. But, this brings some restrictions.
   ? <Tree>{this.state.treeData.map(data => <TreeNode />)}</Tree>
   : 'loading tree'}
 ```
+
+## FAQ
+
+### How to hide file icon when use showLine?
+
+File icon realize by using switcherIcon. You can overwrite the style to hide it: https://codesandbox.io/s/883vo47xp8

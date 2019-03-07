@@ -19,9 +19,9 @@ We can store form data into upper component or [Redux](https://github.com/reactj
 
 ````jsx
 import { Form, Input } from 'antd';
-const FormItem = Form.Item;
 
 const CustomizedForm = Form.create({
+  name: 'global_state',
   onFieldsChange(props, changedFields) {
     props.onChange(changedFields);
   },
@@ -40,11 +40,11 @@ const CustomizedForm = Form.create({
   const { getFieldDecorator } = props.form;
   return (
     <Form layout="inline">
-      <FormItem label="Username">
+      <Form.Item label="Username">
         {getFieldDecorator('username', {
           rules: [{ required: true, message: 'Username is required!' }],
         })(<Input />)}
-      </FormItem>
+      </Form.Item>
     </Form>
   );
 });
@@ -57,11 +57,13 @@ class Demo extends React.Component {
       },
     },
   };
+
   handleFormChange = (changedFields) => {
     this.setState(({ fields }) => ({
       fields: { ...fields, ...changedFields },
     }));
   }
+
   render() {
     const fields = this.state.fields;
     return (

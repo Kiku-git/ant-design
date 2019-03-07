@@ -1,8 +1,8 @@
 ---
 order: 8
 title:
-    zh-CN: 前缀和后缀
-    en-US: prefix and suffix
+  zh-CN: 前缀和后缀
+  en-US: prefix and suffix
 ---
 
 ## zh-CN
@@ -23,13 +23,16 @@ class App extends React.Component {
       userName: '',
     };
   }
+
   emitEmpty = () => {
     this.userNameInput.focus();
     this.setState({ userName: '' });
   }
+
   onChangeUserName = (e) => {
     this.setState({ userName: e.target.value });
   }
+
   render() {
     const { userName } = this.state;
     const suffix = userName ? <Icon type="close-circle" onClick={this.emitEmpty} /> : null;

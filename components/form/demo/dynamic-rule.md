@@ -14,8 +14,9 @@ title:
 Perform different check rules according to different situations.
 
 ````jsx
-import { Form, Input, Button, Checkbox } from 'antd';
-const FormItem = Form.Item;
+import {
+  Form, Input, Button, Checkbox,
+} from 'antd';
 
 const formItemLayout = {
   labelCol: { span: 4 },
@@ -29,6 +30,7 @@ class DynamicRule extends React.Component {
   state = {
     checkNick: false,
   };
+
   check = () => {
     this.props.form.validateFields(
       (err) => {
@@ -38,6 +40,7 @@ class DynamicRule extends React.Component {
       },
     );
   }
+
   handleChange = (e) => {
     this.setState({
       checkNick: e.target.checked,
@@ -45,11 +48,12 @@ class DynamicRule extends React.Component {
       this.props.form.validateFields(['nickname'], { force: true });
     });
   }
+
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
       <div>
-        <FormItem {...formItemLayout} label="Name">
+        <Form.Item {...formItemLayout} label="Name">
           {getFieldDecorator('username', {
             rules: [{
               required: true,
@@ -58,8 +62,8 @@ class DynamicRule extends React.Component {
           })(
             <Input placeholder="Please input your name" />
           )}
-        </FormItem>
-        <FormItem {...formItemLayout} label="Nickname">
+        </Form.Item>
+        <Form.Item {...formItemLayout} label="Nickname">
           {getFieldDecorator('nickname', {
             rules: [{
               required: this.state.checkNick,
@@ -68,26 +72,26 @@ class DynamicRule extends React.Component {
           })(
             <Input placeholder="Please input your nickname" />
           )}
-        </FormItem>
-        <FormItem {...formTailLayout}>
+        </Form.Item>
+        <Form.Item {...formTailLayout}>
           <Checkbox
-            value={this.state.checkNick}
+            checked={this.state.checkNick}
             onChange={this.handleChange}
           >
             Nickname is required
           </Checkbox>
-        </FormItem>
-        <FormItem {...formTailLayout}>
+        </Form.Item>
+        <Form.Item {...formTailLayout}>
           <Button type="primary" onClick={this.check}>
             Check
           </Button>
-        </FormItem>
+        </Form.Item>
       </div>
     );
   }
 }
 
-const WrappedDynamicRule = Form.create()(DynamicRule);
+const WrappedDynamicRule = Form.create({ name: 'dynamic_rule' })(DynamicRule);
 ReactDOM.render(<WrappedDynamicRule />, mountNode);
 
 ````
