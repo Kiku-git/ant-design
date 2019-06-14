@@ -8,7 +8,8 @@ export interface HttpRequestHeader {
 
 export interface RcFile extends File {
   uid: string;
-  lastModifiedDate: Date;
+  readonly lastModifiedDate: Date;
+  readonly webkitRelativePath: string;
 }
 
 export interface UploadFile {
@@ -58,7 +59,7 @@ export interface UploadProps {
   name?: string;
   defaultFileList?: Array<UploadFile>;
   fileList?: Array<UploadFile>;
-  action?: string | ((file: UploadFile) => PromiseLike<any>);
+  action?: string | ((file: RcFile) => string) | ((file: RcFile) => PromiseLike<string>);
   directory?: boolean;
   data?: Object | ((file: UploadFile) => any);
   headers?: HttpRequestHeader;
@@ -70,7 +71,7 @@ export interface UploadProps {
   listType?: UploadListType;
   className?: string;
   onPreview?: (file: UploadFile) => void;
-  onRemove?: (file: UploadFile) => void | boolean;
+  onRemove?: (file: UploadFile) => void | boolean | Promise<void | boolean>;
   supportServerRender?: boolean;
   style?: React.CSSProperties;
   disabled?: boolean;
